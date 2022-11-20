@@ -1,0 +1,6 @@
+import os
+from tools.comanding import *
+
+
+if __name__ == "__main__":
+    runn()
