@@ -928,12 +928,10 @@ gr='\033[1;32m'
 purple='\033[1;35m'
 def O2():
 	print(f"""
-{b}=[{y} One For All  > Exploit v2.0.1-dev       {b}]
-+ -- --=[ {gr}500{r} exploits {gr}5 {r}payloads{b} ]
-+ -- --=[{gr} 3 {r}ransomwares                  {b}  ]
-+ -- --=[          {purple}[ {r} Exit {gr} {purple} ]    {b} ]
-""")
-O2()
+{gr}={w}[{w} DrSploit Framework {b}v2.0.1-dev        {w}]
+{gr}+{w} -- --=[ {w}500{w} exploits       {w}5 {w}payloads{w} ]
+{gr}+{w} -- --=[{w} 3 {w}ransomwares               {w}  ]""")
+
  
  
 def sem():

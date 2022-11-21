@@ -2,25 +2,14 @@ import os
 import sys
 import time
 import json
-import errno
-import base64
-import ctypes
-import ftplib
-import struct
-import socket
-import signal
-import logging
-import functools
-import threading
 import subprocess
-import collections
-import logging.handlers
 from .banners import *
 import ast
-#import rich
-#from rich.table import Table
-#from rich.console import Console  
-#console = Console()
+import logging
+import rich
+from rich.table import Table
+from rich.console import Console  
+console = Console()
 g='\033[1;32m'
 wr = "\033[0m"
 if sys.version_info[0] < 3:
@@ -33,12 +22,7 @@ else:
     from io import StringIO
 
 # modules
-try:
-    from util import *
-    from loader import *
-    from security import *
-except ImportError:
-    pass
+
 
 
 
@@ -147,87 +131,22 @@ class command():
 
 
 
-    def cat(path):
-        """
-        Display file contents
 
-        `Required`
-        :param str path:  target filename
-
-        """
-        
-        output = []
-        if not os.path.isfile(path):
-            return "Error: file not found"
-        for line in open(path, 'rb').read().splitlines():
-            if len(line) and not line.isspace():
-                if len('\n'.join(output + [line])) < 48000:
-                    output.append(line)
-                else:
-                    break
-        return '\n'.join(output)
    
-    def wget(self, url, filename=None):
-        """
-        Download file from URL
 
-        `Required`
-        :param str url:         target URL to download ('http://...')
 
-        `Optional`
-        :param str filename:    name of the file to save the file as
-
-        """
-        if sys.version_info[0] < 3:
-            from urllib import urlretrieve
-            from urllib2 import urlopen, urlparse
-            import StringIO
-        else:
-            from urllib import parse as urlparse
-            from urllib.request import urlopen, urlretrieve
-        if url.startswith('http'):
-            try:
-                path, _ = urlretrieve(url, filename) if filename else urlretrieve(url)
-                return path
-            except Exception as e:
-                log("{} error: {}".format(self.wget.__name__, str(e)))
-        else:
-            return "Invalid target URL - must begin with 'http'"
-    def run(self):
-        try:
-             # run command as module if module exists.
-                            # otherwise, run as shell command in subprocess
-            command = self._get_command(cmd)
-            if command:
-                result = command(action) if action else command()
-            else:
-                result, reserr = subprocess.Popen(task['task'].encode(), 0, None, subprocess.PIPE, subprocess.PIPE, subprocess.PIPE, shell=True).communicate()
-                if result == None:
-                    result = reserr
-
-                            # format result
-            if result != None:
-                if type(result) in (list, tuple):
-                    result = '\n'.join(result)
-                elif type(result) == bytes:
-                    result = str(result.decode())
-                else:
-                    result = str(result)
-        except Exception as e:
-            result = "{} error: {}".format(self.run.__name__, str(e)).encode()
-            
-            log(result)
 def runn():
     
     sem()
     O2()
+    
 
     while True:
 
         x = input(f"{wr}msi>")
         xs = x.split(" ")
         try:
-            if xs[0] == "ls":
+            if xs[0] == "ls" :
                 print(command.ls())
             elif x == "pwd":
                 command.pwd()
@@ -235,8 +154,6 @@ def runn():
                 command.cd(x)
             elif x.startswith("use"):
                 command.use(x[1])
-            elif x == "cat":
-                command.cat(x)
             elif x == "":
                 continue
             elif x == "banner":
@@ -244,8 +161,13 @@ def runn():
                 O2()
             elif x == "dir":
                 print(subprocess.run(x,shell=True))
+            elif x == "^C":
+                print("Type [ exit ] for close")
             else :
-                print("[-] command is Error ")
+                print(f"[{g}+{wr}] exec: {x}\n")
+                subprocess.run(x)
+                #print("[-] command is Error ")
             
         except:
             print("[-] command not found ")
+        
