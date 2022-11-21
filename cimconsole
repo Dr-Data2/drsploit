@@ -1,6 +1,91 @@
 import os
+import sys
 from tools.comanding import *
+from optparse import OptionParser
+import rich
+from rich.table import Table
+from rich.console import Console 
+
+console = Console()
+
+class Helpe:
+
+
+	def usage():
+        	console.print ("""
+command
+    -d  --doenload    Download Tools
+    -s --server       Put the IP to be checked or penetrated
+    -p --port         Put the port to be checked
+    -h --help         Help and inquire about something
+    -D --DDos         Blocking DDOS for a site or device
+    -v --virus        Made of Trojan or Ransomware viruses
+    -w --wifi         Wi-Fi check
+    -i --image        Convert digital image
+    -c --chat         An anonymous conversation in rooms
+Using :
+    klar <command>
+
+Example :
+    klar -D -s 192.818.184.1 -p 80 -t1
+
+
+
+""",style="bold" );sys.exit()
+
+services = ""
+#quiet = ""
+help = "" 
+update = ""
+virsun = True
+
+
+def get_parameters():
+		global services
+		#global quiet
+		global help 
+		global update
+		global virsun
+		optp = OptionParser(add_help_option=False,epilog="drsploit")
+		#optp.add_option("-q","--quiet", help="set logging to ERROR",action="store_const", dest="quiet",const=logging.ERROR, default=logging.INFO)
+		optp.add_option("-s","--services", dest="services",help="Start Services Sql DataBase")
+		optp.add_option("-f","--fast",type="int",dest="fast",help="fast Starting The DrSploit")
+		optp.add_option("-u","--update",type="str",dest="update",help="Update DrSploit")
+		optp.add_option("-h","--help",dest="help",action='store_true',help="help DrSploit")
+		optp.add_option("-v","--virsun", dest="virsun",action='store_true',help="DrSploit Virsun") 
+		opts, args = optp.parse_args()
+		#logging.basicConfig(level=opts.quiet,format='%(levelname)-8s %(message)s')
+
+
+
+		if opts.help:
+			Helpe.usage()
+		elif opts.virsun :
+			console.print("DrSploit 1.0v",style="bold")
+			sys.exit()
+		elif opts.services is None:
+			services = opts.services
+		if opts.update is None:
+			update = update
+	#	if opts.download is None:
+	#		download = 1
+		
+		
+	        	        #print("Git Your Number ")
+			#download = opts.download
+		#if opts.quiet is None:
+		#	quiet = 0
+		#else :
+		#	pass
+        
 
 
 if __name__ == "__main__":
-    runn()
+	get_parameters()
+	with console.status("[bold dark_orange]DrSploit Framework is starting .....") as status:
+		time.sleep(4)
+		
+	runn()
+	
+    
+    
